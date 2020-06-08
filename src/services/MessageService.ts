@@ -1,6 +1,6 @@
 import { IMessageService } from './IMessageService';
 import Message from 'src/models/Message';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
