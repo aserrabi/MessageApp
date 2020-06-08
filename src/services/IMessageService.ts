@@ -4,6 +4,5 @@ import { Observable } from 'rxjs';
 export interface IMessageService
 {
     GetAllMessages() : Promise<Array<Message>>
-    GetMessageById() : Promise<Message>
     SendNewMessage(message: Message) : Observable<Message>
 }

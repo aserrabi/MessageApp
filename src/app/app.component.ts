@@ -18,7 +18,6 @@ export class AppComponent implements OnInit {
 
   messages: Message[];
   connectionStarted: boolean;
-  displayedColumns: string[] = ['id', 'subject', 'content', 'author', 'sentAt'];
   dataSource = [];
 
   private messageService: IMessageService;
@@ -38,6 +37,40 @@ export class AppComponent implements OnInit {
     this.ConfigureSignalR();
   }
 
+  viewMessage(event: any)
+  {
+    var messageData = event.data;
+
+    console.log(messageData as Message);
+
+    var message = new Message();
+    message.Id = messageData.id;
+    message.Subject = messageData.subject;
+    message.Content = messageData.content;
+    message.Author = messageData.author;
+    message.SentAt = messageData.sentAt;
+
+    this.openDialog(false, message);
+  }
+
+  sendNewMessage(event: Event) {
+    this.openDialog(true, new Message());
+  }
+
+  private openDialog(enabledFields: boolean, messageData: Message)
+  {
+    const dialogRef = this.dialog.open(NewMessageComponent, {
+      width: '40%', 
+      data: {message: messageData, enabledFields: enabledFields}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result !== undefined){
+        this.messageService.SendNewMessage(result).subscribe();
+      }
+    });
+  }
+
   private async ConfigureSignalR()
   {
     this.signalRService.StartConnection()
@@ -47,7 +80,6 @@ export class AppComponent implements OnInit {
         this.connectionStarted = true;
         this.signalRService.AddListener("newMessage", (data) => {
           console.log("New Message received") 
-          console.log(data) 
           this.messages.push(data)
         });
       })
@@ -58,16 +90,5 @@ export class AppComponent implements OnInit {
   {
     var allMessages = await this.messageService.GetAllMessages();
     return allMessages;
-  }
-
-  sendNewMessage(event: Event) {
-    const dialogRef = this.dialog.open(NewMessageComponent, {
-      width: '30%', 
-      data: new Message()
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      this.messageService.SendNewMessage(result).subscribe();
-    });
-  }
+  } 
 }

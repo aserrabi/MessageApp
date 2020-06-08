@@ -20,10 +20,6 @@ export class MessageService implements IMessageService
         return result;
     }
 
-    GetMessageById(): Promise<Message> {
-        throw new Error("Method not implemented.");
-    }
-
     SendNewMessage(message: Message): Observable<Message> {
         return this.http.post<Message>(this.apiUrl, message);
     }

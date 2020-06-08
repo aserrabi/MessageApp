@@ -21,8 +21,9 @@
       [highlightChanges]="true"
       [allowColumnReordering]="true"
       [rowAlternationEnabled]="true"
-      [showBorders]="true">
-      
+      [showBorders]="true"
+      (onRowClick)="viewMessage($event)">
+      <dxo-selection mode="single"></dxo-selection>
       <dxo-scrolling mode="virtual" rowRenderingMode="virtual" ></dxo-scrolling>
       <dxo-paging [pageSize]="15"></dxo-paging>
       
