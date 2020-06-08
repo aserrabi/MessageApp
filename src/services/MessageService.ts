@@ -1,6 +1,6 @@
 import { IMessageService } from './IMessageService';
 import Message from 'src/models/Message';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -18,10 +18,6 @@ export class MessageService implements IMessageService
     async GetAllMessages(): Promise<Message[]> {
         var result = await this.http.get<Message[]>(this.apiUrl).toPromise()
         return result;
-    }
-
-    GetMessageById(): Promise<Message> {
-        throw new Error("Method not implemented.");
     }
 
     SendNewMessage(message: Message): Observable<Message> {

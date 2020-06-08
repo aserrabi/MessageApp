@@ -13,32 +13,34 @@
   </button>
 </div>
 
-<dx-data-grid id="messages-data-grid"
-    [dataSource]="dataSource"
-    [remoteOperations]="false"
-    [allowColumnReordering]="true"
-    [rowAlternationEnabled]="true"
-    [showBorders]="true">
+<div class="table-container" ng-if="connectionStarted">
+  <dx-data-grid id="messages-data-grid"
+      [dataSource]="dataSource"
+      [height]="'100%'"
+      [repaintChangesOnly]="true"
+      [highlightChanges]="true"
+      [allowColumnReordering]="true"
+      [rowAlternationEnabled]="true"
+      [showBorders]="true"
+      (onRowClick)="viewMessage($event)">
+      <dxo-selection mode="single"></dxo-selection>
+      <dxo-scrolling mode="virtual" rowRenderingMode="virtual" ></dxo-scrolling>
+      <dxo-paging [pageSize]="15"></dxo-paging>
+      
+      <dxo-search-panel
+          [visible]="true"
+          [highlightCaseSensitive]="false"
+      ></dxo-search-panel>
+      <dxo-group-panel
+          [visible]="true"
+      ></dxo-group-panel>
+      <dxo-grouping
+          [autoExpandAll]="false"
+      ></dxo-grouping>
 
-    <dxo-paging [pageSize]="10"></dxo-paging>
-    <dxo-pager
-        [showPageSizeSelector]="true"
-        [allowedPageSizes]="[10, 25, 50, 100]"
-    ></dxo-pager>
-    <dxo-search-panel
-        [visible]="true"
-        [highlightCaseSensitive]="true"
-    ></dxo-search-panel>
-    <dxo-group-panel
-        [visible]="true"
-    ></dxo-group-panel>
-    <dxo-grouping
-        [autoExpandAll]="false"
-    ></dxo-grouping>
-
-    <dxi-column dataField="id"></dxi-column>
-    <dxi-column dataField="subject" dataType="string"></dxi-column>
-    <dxi-column dataField="content" dataType="string"></dxi-column>
-    <dxi-column dataField="author" dataType="string"></dxi-column>
-    <dxi-column dataField="sentAt" dataType="date"></dxi-column>
-</dx-data-grid>
+      <dxi-column dataField="subject" width="25%" dataType="string"></dxi-column>
+      <dxi-column dataField="content" dataType="string"></dxi-column>
+      <dxi-column dataField="author" width="10%" dataType="string"></dxi-column>
+      <dxi-column dataField="sentAt" width="15%" dataType="date"></dxi-column>
+  </dx-data-grid>
+</div>
