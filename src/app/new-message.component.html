@@ -1,0 +1,20 @@
+<h1 mat-dialog-title>New Message</h1>
+<mat-divider></mat-divider>
+<div mat-dialog-content>
+    <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Subject</mat-label>
+        <input matInput placeholder="Subject" [(ngModel)]="data.Subject">
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Content</mat-label>
+        <textarea matInput placeholder="Content" [(ngModel)]="data.Content"></textarea>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Author</mat-label>
+        <input matInput placeholder="Author" [(ngModel)]="data.Author">
+    </mat-form-field>
+</div>
+<div mat-dialog-actions class="float-right">
+    <button mat-raised-button color="warn" (click)="onCancelClick()">Cancel</button>
+    <button mat-raised-button color="primary" [mat-dialog-close]="data" cdkFocusInitial>Send</button>
+</div>
