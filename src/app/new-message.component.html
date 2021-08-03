@@ -1,0 +1,24 @@
+<h1 mat-dialog-title>{{data.enabledFields === true ? "New Message" : "Message Viewer" }}</h1>
+
+<div mat-dialog-content>
+    <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Subject</mat-label>
+        <input matInput placeholder="Subject" [(ngModel)]="data.message.Subject" readonly="{{!data.enabledFields}}">
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Content</mat-label>
+        <textarea matInput placeholder="Content" [(ngModel)]="data.message.Content" readonly="{{!data.enabledFields}}"></textarea>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Author</mat-label>
+        <input matInput placeholder="Author" [(ngModel)]="data.message.Author" readonly="{{!data.enabledFields}}">
+    </mat-form-field>
+    <mat-form-field *ngIf="!data.enabledFields" appearance="outline" class="full-width">
+        <mat-label>SentAt</mat-label>
+        <input matInput placeholder="Sent At" [(ngModel)]="data.message.SentAt" readonly="true">
+    </mat-form-field>
+</div>
+<div mat-dialog-actions class="float-right">
+    <button mat-raised-button color="warn" (click)="onCancelClick()">Cancel</button>
+    <button *ngIf="data.enabledFields" mat-raised-button color="primary" [mat-dialog-close]="data.message"  disabled="{{!data.enabledFields}}" cdkFocusInitial>Send</button>
+</div>
